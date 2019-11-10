@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?android:attr/selectableItemBackground">
+
+
+    <ImageView
+        android:id="@+id/device_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/text_margin"
+        android:layout_marginEnd="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/device_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/device_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="24dp"
+        android:text="Device Name"
+        android:textAppearance="?attr/textAppearanceListItem"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/device_icon"
+        app:layout_constraintTop_toTopOf="@+id/device_icon" />
+
+    <TextView
+        android:id="@+id/device_address"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:alpha="0.3"
+        android:text="Address"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@+id/device_name"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/device_name"
+        app:layout_constraintTop_toBottomOf="@+id/device_name" />
+
+    <Button
+        android:id="@+id/buttonStop"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="8dp"
+        android:text="Stop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/buttonStart"
+        app:layout_constraintStart_toStartOf="@+id/device_address"
+        app:layout_constraintTop_toBottomOf="@+id/device_address" />
+
+    <Button
+        android:id="@+id/buttonStart"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:text="Start"
+        app:layout_constraintEnd_toStartOf="@+id/buttonConnect"
+        app:layout_constraintStart_toEndOf="@+id/buttonStop"
+        app:layout_constraintTop_toTopOf="@+id/buttonStop" />
+
+    <Button
+        android:id="@+id/buttonConnect"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="Connect"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonStart"
+        app:layout_constraintEnd_toEndOf="@+id/device_address"
+        app:layout_constraintStart_toEndOf="@+id/buttonStart"
+        app:layout_constraintTop_toTopOf="@+id/buttonStart" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
