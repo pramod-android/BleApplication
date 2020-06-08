@@ -21,7 +21,9 @@ import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModelProvider;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +51,10 @@ public class BleModel {
     List<BluetoothGattService> services;
     BluetoothGattCharacteristic characteristic;
 
+    private Handler handler;
+    private Runnable runnable;
+    private TestResultsViewModel testResultsViewModel;
+
     public BleModel(Context mContext, BluetoothAdapter bluetoothAdapter) {
         this.mContext = mContext;
         this.mBluetoothAdapter = bluetoothAdapter;
@@ -58,6 +64,7 @@ public class BleModel {
                 .setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY)
                 .build();
         bleRepository = BleRepository.getInstance();
+        testResultsViewModel = new ViewModelProvider((FragmentActivity) mContext).get(TestResultsViewModel.class);
 
     }
 
@@ -224,24 +231,36 @@ public class BleModel {
         @Override
         public void onCharacteristicChanged(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic) {
             super.onCharacteristicChanged(gatt, characteristic);
-            byte[] messageBytes = characteristic.getValue();
+            final byte[] messageBytes = characteristic.getValue();
+            ((BleDeviceActivity) mContext).runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    handler = new Handler();
+                    runnable = new Runnable() {
+                        @Override
+                        public void run() {
+                            testResultsViewModel.getCurrentValue().setValue(messageBytes);
+                        }
+                    };
+                    handler.postDelayed(runnable, 200);
+                }
+            });
 
-
-            Byte b1 = messageBytes[3];
-            Byte b2 = messageBytes[4];
-
-            int val;//=((messageBytes[3]+256)+((messageBytes[4]+256)*256));
-            int firstVal = b1.byteValue();
-            if (firstVal < 0) {
-                firstVal = firstVal + 256;
-                val = ((messageBytes[3] + 256) + ((messageBytes[4] + 256) * 256));
-            } else {
-                int secVal = b2.byteValue() + 256;
-                val = ((messageBytes[3]) + ((messageBytes[4] + 256) * 256));
-            }
-
-            Log.i(TAG, String.valueOf(val));
-            bleRepository.insertValue(String.valueOf(val));
+//            Byte b1 = messageBytes[3];
+//            Byte b2 = messageBytes[4];
+//
+//            int val;//=((messageBytes[3]+256)+((messageBytes[4]+256)*256));
+//            int firstVal = b1.byteValue();
+//            if (firstVal < 0) {
+//                firstVal = firstVal + 256;
+//                val = ((messageBytes[3] + 256) + ((messageBytes[4] + 256) * 256));
+//            } else {
+//                int secVal = b2.byteValue() + 256;
+//                val = ((messageBytes[3]) + ((messageBytes[4] + 256) * 256));
+//            }
+//
+//            Log.i(TAG, String.valueOf(val));
+//            bleRepository.insertValue(String.valueOf(val));
         }
 
         @Override

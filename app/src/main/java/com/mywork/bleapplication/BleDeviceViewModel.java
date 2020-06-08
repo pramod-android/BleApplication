@@ -11,20 +11,18 @@ import java.util.List;
 
 public class BleDeviceViewModel extends AndroidViewModel {
     BleRepository bleRepository;
-   MutableLiveData<List<BluetoothDevice>> mBluetoothDevices=new MutableLiveData<>();
     MutableLiveData<List<String>> values=new MutableLiveData<>();
 
     public BleDeviceViewModel(@NonNull Application application) {
         super(application);
         bleRepository = BleRepository.getInstance();
-        mBluetoothDevices= bleRepository.getAllDevicesList();
         values= bleRepository.getAllValuesList();
     }
 
 
 
     public MutableLiveData<List<BluetoothDevice>> getAllDevicesList() {
-        return mBluetoothDevices;
+        return  bleRepository.getAllDevicesList();
     }
 
     public MutableLiveData<List<String>> getAllValuesList() {

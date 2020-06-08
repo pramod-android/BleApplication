@@ -1,6 +1,5 @@
 package com.mywork.bleapplication;
 
-import android.app.Application;
 import android.bluetooth.BluetoothDevice;
 
 import androidx.lifecycle.MutableLiveData;
@@ -17,16 +16,6 @@ public class BleRepository {
 
     MutableLiveData<List<String>> mValues = new MutableLiveData<>();
     List<String> values = new ArrayList<>();
-
-
-    public BleRepository(Application application) {
-        // Bluetooth adapter
-        bleModel = new BleModel(application);
-
-        mBluetoothDevices = getAllDevicesList();
-        mValues=getAllValuesList();
-    }
-
     private BleRepository() {
 
     }
@@ -46,7 +35,7 @@ public class BleRepository {
     }
 
     public void insert(BluetoothDevice bluetoothDevice) {
-      //  mBluetoothDeviceslist = new ArrayList();
+        mBluetoothDeviceslist = new ArrayList();
         mBluetoothDeviceslist.add(bluetoothDevice);
 
         mBluetoothDevices.postValue(mBluetoothDeviceslist);

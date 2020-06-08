@@ -3,4 +3,9 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+
+    <color name="azure">#00adee</color>
+    <color name="cornflower_blue">#4875d4</color>
+    <color name="dark_slate_blue">#1e3058</color>
+
 </resources>
